@@ -164,7 +164,7 @@ Special VAE used for training: {vae_path}.
 
 ## Trigger words
 
-You should use a combination of  {instance_prompt} and {instance_prompt_2} to trigger the image generation 
+You should use a combination of  {instance_prompt} and {instance_prompt_2} to trigger the image generation
 using the two trained concepts.
 
 ## Download model
@@ -1663,6 +1663,9 @@ def main(args):
                 pipeline = pipeline.to(accelerator.device)
                 pipeline.set_progress_bar_config(disable=True)
 
+                validation_img_dir = os.path.join(args.output_dir, "validation")
+                os.makedirs(validation_img_dir, exist_ok=True)
+
                 # run inference
                 generator = (
                     torch.Generator(device=accelerator.device).manual_seed(args.seed)
@@ -1675,6 +1678,9 @@ def main(args):
                     pipeline(**pipeline_args, generator=generator).images[0]
                     for _ in range(args.num_validation_images)
                 ]
+
+                for i, image in enumerate(images):
+                    image.save(os.path.join(validation_img_dir, f"validation_{epoch}_{i}.png"))
 
                 for tracker in accelerator.trackers:
                     if tracker.name == "tensorboard":

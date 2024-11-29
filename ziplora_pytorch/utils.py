@@ -5,7 +5,7 @@ from huggingface_hub import hf_hub_download
 import torch
 from safetensors import safe_open
 from diffusers import UNet2DConditionModel
-from diffusers.loaders.lora import LORA_WEIGHT_NAME_SAFE
+from diffusers.loaders.lora_base import LORA_WEIGHT_NAME_SAFE
 from .ziplora import ZipLoRALinearLayer, ZipLoRALinearLayerInference
 
 
@@ -53,6 +53,10 @@ def merge_lora_weights(
     for part in ["to_q", "to_k", "to_v", "to_out.0"]:
         down_key = target_key + f".{part}.lora.down.weight"
         up_key = target_key + f".{part}.lora.up.weight"
+        print(f"Checking keys: {down_key}, {up_key}")
+        if up_key not in tensors or down_key not in tensors:
+            print(f"Missing key: {up_key if up_key not in tensors else down_key}")
+            continue
         merged_weight = tensors[up_key] @ tensors[down_key]
         out[part] = merged_weight
     return out
