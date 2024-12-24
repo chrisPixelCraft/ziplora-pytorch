@@ -1,18 +1,18 @@
 export MODEL_NAME="stabilityai/stable-diffusion-xl-base-1.0"
 
 # for subject
-export LORA_PATH="/root/ziplora-pytorch/diffusers/examples/dreambooth/lora-trained-xl-calli_rank_64/pytorch_lora_weights.safetensors"
-export INSTANCE_DIR="/root/ziplora-pytorch/diffusers/examples/dreambooth/calli"
-export PROMPT="a photo of 秋"
+export LORA_PATH="./pytorch_lora_weights_content_r64.safetensors"
+export INSTANCE_DIR="./ziplora_dataset/content"
+export PROMPT="a cat wearing wearable glasses"
 
 # for style
-export LORA_PATH2="/root/ziplora-pytorch/diffusers/examples/dreambooth/lora-trained-xl-autumn_rank_64/pytorch_lora_weights.safetensors"
-export INSTANCE_DIR2="/root/ziplora-pytorch/diffusers/examples/dreambooth/autumn"
-export PROMPT2="A photo of autumn style"
+export LORA_PATH2="./pytorch_lora_weights_style_r64.safetensors"
+export INSTANCE_DIR2="./ziplora_dataset/style"
+export PROMPT2="A photo of watercolour style"
 
 # general
-export OUTPUT_DIR="ziplora-sdxl-autumn-rank-64"
-export VALID_PROMPT="秋 in autumn style"
+export OUTPUT_DIR="ziplora-sdxl-content-style-rank-64"
+export VALID_PROMPT="a cat wearing wearable glasses in a watercolour style"
 
 
 accelerate launch train_dreambooth_ziplora_sdxl.py \
