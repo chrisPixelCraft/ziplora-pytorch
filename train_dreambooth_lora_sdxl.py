@@ -1910,7 +1910,7 @@ def main(args):
             text_encoder_lora_layers=text_encoder_lora_layers,
             text_encoder_2_lora_layers=text_encoder_2_lora_layers,
         )
-        
+
         # remove unuse models for save GPU memory
         unet = unet.cpu()
         text_encoder_one = text_encoder_one.cpu()

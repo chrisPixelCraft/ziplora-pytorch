@@ -163,4 +163,4 @@ cython_debug/
 src
 
 ziplora_dataset/
-.safetensors
+*.safetensors
